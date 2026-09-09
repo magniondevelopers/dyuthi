@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dyuthi Process Consultants — Website Wireframes</title>
+<style>
+  :root{
+    --ink:#1c1c1c;
+    --sub:#6b6b6b;
+    --line:#b7b7b7;
+    --line-soft:#d9d9d9;
+    --block:#eeeeee;
+    --block-strong:#e2e2e2;
+    --accent:#2b4c7e;
+    --accent-soft:#dde6f2;
+    --page-bg:#fafafa;
+    --canvas:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background:var(--page-bg);
+    color:var(--ink);
+  }
+
+  /* ---------- Top chrome ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:var(--canvas);
+    border-bottom:1px solid var(--line-soft);
+    padding:14px 24px;
+  }
+  .topbar-inner{
+    max-width:1200px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  }
+  .brand{
+    font-size:14px; font-weight:600; letter-spacing:.02em;
+  }
+  .brand span{color:var(--sub); font-weight:400;}
+  .nav-tabs{
+    display:flex; gap:6px; flex-wrap:wrap;
+  }
+  .nav-tabs button{
+    font-family:inherit;
+    font-size:12.5px;
+    padding:7px 12px;
+    border-radius:6px;
+    border:1px solid var(--line-soft);
+    background:var(--canvas);
+    color:var(--sub);
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .nav-tabs button:hover{ border-color:var(--accent); color:var(--accent); }
+  .nav-tabs button.active{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
+  }
+
+  .page-wrap{
+    max-width:1200px;
+    margin:28px auto 80px;
+    padding:0 24px;
+  }
+  .page-meta{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:16px; flex-wrap:wrap; gap:8px;
+  }
+  .page-meta h1{
+    font-size:20px; margin:0;
+  }
+  .page-meta .path{
+    font-size:12.5px; color:var(--sub);
+  }
+
+  .canvas{
+    background:var(--canvas);
+    border:1px solid var(--line-soft);
+    border-radius:4px;
+    overflow:hidden;
+  }
+
+  /* ---------- Wireframe block primitives ---------- */
+  .blk{
+    border:1px dashed var(--line);
+    background:var(--block);
+    position:relative;
+    padding:16px 18px;
+  }
+  .blk + .blk{ border-top:1px dashed var(--line); }
+  .blk.strong{ background:var(--block-strong); }
+  .blk.accent{ background:var(--accent-soft); border-style:solid; border-color:var(--accent); }
+  .blk-label{
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--accent);
+    font-weight:600;
+    margin:0 0 4px;
+  }
+  .blk-desc{
+    font-size:12.5px;
+    color:#4a4a4a;
+    margin:0;
+    line-height:1.5;
+  }
+  .blk-title-mock{
+    height:14px; width:46%; background:#cfcfcf; border-radius:2px; margin:2px 0 8px;
+  }
+  .blk-title-mock.sm{ height:10px; width:30%; }
+  .blk-line-mock{
+    height:8px; background:#dadada; border-radius:2px; margin:6px 0;
+  }
+  .blk-line-mock.w60{width:60%;} .blk-line-mock.w80{width:80%;} .blk-line-mock.w40{width:40%;}
+
+  .row{ display:flex; }
+  .row > .blk{ flex:1; border-left:1px dashed var(--line); }
+  .row > .blk:first-child{ border-left:none; }
+
+  .grid{
+    display:grid;
+    gap:0;
+  }
+  .grid.cols-2{ grid-template-columns:1fr 1fr; }
+  .grid.cols-3{ grid-template-columns:1fr 1fr 1fr; }
+  .grid.cols-4{ grid-template-columns:1fr 1fr 1fr 1fr; }
+  .grid .blk{ border-left:1px dashed var(--line); border-top:1px dashed var(--line); }
+  .grid .blk:nth-child(-n+3){ border-top:none; }
+  .grid.cols-4 .blk:nth-child(-n+4){ border-top:none; }
+  .grid.cols-2 .blk:nth-child(-n+2){ border-top:none; }
+  .grid .blk:first-child, .grid.cols-2 .blk:nth-child(2n+1), .grid.cols-3 .blk:nth-child(3n+1), .grid.cols-4 .blk:nth-child(4n+1){ border-left:none; }
+
+  .btn-mock{
+    display:inline-block;
+    font-size:11px; font-weight:600;
+    padding:6px 14px;
+    border:1px solid var(--accent);
+    color:var(--accent);
+    border-radius:3px;
+    margin-top:8px;
+  }
+  .btn-mock.filled{ background:var(--accent); color:#fff; }
+
+  .icon-mock{
+    width:28px; height:28px; border-radius:50%;
+    border:1px dashed var(--line);
+    display:inline-block;
+    margin-bottom:8px;
+  }
+  .avatar-mock{
+    width:64px; height:64px; border-radius:50%;
+    background:#d7d7d7; border:1px dashed var(--line);
+  }
+  .img-mock{
+    background:repeating-linear-gradient(45deg, #e5e5e5, #e5e5e5 6px, #ececec 6px, #ececec 12px);
+    border:1px dashed var(--line);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--sub); font-size:11px;
+  }
+  .logo-mock{
+    width:64px; height:24px; background:#d7d7d7; border-radius:2px;
+  }
+  .pill{
+    display:inline-block; font-size:10px; padding:3px 8px; border:1px solid var(--line);
+    border-radius:20px; color:var(--sub); margin-right:6px;
+  }
+  .note{
+    font-size:11.5px; color:var(--sub); font-style:italic; margin-top:4px;
+  }
+
+  /* page sections stack */
+  .stack > .blk{ border-top:none; }
+  .stack > .blk:first-child{ border-top:1px dashed var(--line); }
+
+  .footer-mock{
+    background:#333; color:#ccc; padding:20px 18px; font-size:11px;
+  }
+
+  .view{ display:none; }
+  .view.active{ display:block; }
+
+  @media (max-width:720px){
+    .grid.cols-4{ grid-template-columns:1fr 1fr; }
+    .grid.cols-3{ grid-template-columns:1fr 1fr; }
+    .row{ flex-direction:column; }
+    .row > .blk{ border-left:none; border-top:1px dashed var(--line); }
+    .row > .blk:first-child{ border-top:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">DYUTHI PROCESS CONSULTANTS <span>— website wireframes (v1, for structure sign-off)</span></div>
+    <div class="nav-tabs" id="navTabs"></div>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <div class="page-meta">
+    <h1 id="pageTitle">Home</h1>
+    <div class="path" id="pagePath">dyuthiprocessconsultants.com/</div>
+  </div>
+  <div class="canvas" id="canvas"></div>
+</div>
+
+<script>
+const pages = [
+  {
+    id: 'home', label: 'Home', path: '/',
+    render: () => `
+      <div class="stack">
+        <div class="blk accent">
+          <p class="blk-label">Hero Banner</p>
+          <div class="blk-title-mock" style="width:70%;height:22px;"></div>
+          <div class="blk-line-mock w60"></div>
+          <div class="blk-line-mock w40"></div>
+          <span class="btn-mock filled">Primary CTA</span>
+          <p class="blk-desc" style="margin-top:10px;">Main headline, brief intro and primary call-to-action buttons.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">About Dyuthi Grafix</p>
+          <div class="row" style="border:none;">
+            <div style="flex:1;padding-right:16px;">
+              <div class="blk-line-mock w80"></div>
+              <div class="blk-line-mock w60"></div>
+              <span class="btn-mock">Learn More →</span>
+            </div>
+            <div class="img-mock" style="flex:1;height:80px;">image</div>
+          </div>
+          <p class="blk-desc">Brief company introduction, links to About Us page.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Business Challenges</p>
+          <div class="grid cols-3" style="margin-top:6px;">
+            ${[1,2,3].map(()=>`<div class="blk" style="border-color:var(--line);padding:12px;"><div class="icon-mock"></div><div class="blk-title-mock sm"></div><div class="blk-line-mock w80"></div></div>`).join('')}
+          </div>
+          <p class="blk-desc">Key business/operational challenges Dyuthi helps address.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Our Services</p>
+          <div class="grid cols-4" style="margin-top:6px;">
+            ${Array(4).fill(0).map(()=>`<div class="blk" style="border-color:var(--line);padding:12px;"><div class="icon-mock"></div><div class="blk-title-mock sm"></div><div class="blk-line-mock w80"></div><span class="btn-mock" style="margin-top:6px;font-size:10px;">View →</span></div>`).join('')}
+          </div>
+          <p class="blk-desc">Service cards (7 total, showing first 4) linking to individual service pages.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Our Approach</p>
+          <div class="row" style="border:none;margin-top:6px;">
+            ${['Audit','Diagnose','Implement','Review'].map((s,i)=>`<div class="blk" style="border-color:var(--line);text-align:center;padding:14px;"><div class="icon-mock" style="margin:0 auto 8px;"></div><div class="blk-title-mock sm" style="margin:0 auto;"></div></div>`).join('')}
+          </div>
+          <p class="blk-desc">Visual representation of the consulting/improvement process.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Industries We Serve</p>
+          <div class="grid cols-4" style="margin-top:6px;">
+            ${Array(4).fill(0).map(()=>`<div class="blk" style="border-color:var(--line);"><div class="img-mock" style="height:50px;">icon/image</div><div class="blk-line-mock w60" style="margin:8px auto 0;"></div></div>`).join('')}
+          </div>
+          <p class="blk-desc">Preview of industries served, links to Industries page.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Featured Case Studies</p>
+          <div class="grid cols-3" style="margin-top:6px;">
+            ${Array(3).fill(0).map(()=>`<div class="blk" style="border-color:var(--line);padding:0;"><div class="img-mock" style="height:80px;">image</div><div style="padding:10px;"><div class="blk-title-mock sm"></div><div class="blk-line-mock w80"></div><span class="pill">Industry</span></div></div>`).join('')}
+          </div>
+          <p class="blk-desc">Selected case studies, displayed dynamically from CMS.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Why Choose Us</p>
+          <div class="grid cols-4" style="margin-top:6px;">
+            ${Array(4).fill(0).map(()=>`<div class="blk" style="border-color:var(--line);text-align:center;"><div class="icon-mock" style="margin:0 auto 8px;"></div><div class="blk-line-mock w60" style="margin:0 auto;"></div></div>`).join('')}
+          </div>
+          <p class="blk-desc">Key strengths and differentiators.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Principal Consultant</p>
+          <div class="row" style="border:none;align-items:center;">
+            <div style="flex:0 0 90px;"><div class="avatar-mock"></div></div>
+            <div style="flex:1;padding-left:16px;">
+              <div class="blk-title-mock sm"></div>
+              <div class="blk-line-mock w80"></div>
+              <div class="blk-line-mock w60"></div>
+              <span class="btn-mock">Meet Vivekanand →</span>
+            </div>
+          </div>
+          <p class="blk-desc">Brief intro to Vivekanand Shankar, links to About Us page.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Companies We Have Worked With</p>
+          <div class="row" style="border:none;gap:14px;flex-wrap:wrap;">
+            ${Array(6).fill(0).map(()=>`<div class="logo-mock"></div>`).join('')}
+          </div>
+          <p class="blk-desc">Client/company logo grid or carousel.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Client Testimonials</p>
+          <div class="grid cols-3" style="margin-top:6px;">
+            ${Array(3).fill(0).map(()=>`<div class="blk" style="border-color:var(--line);"><div class="blk-line-mock w80"></div><div class="blk-line-mock w60"></div><div class="row" style="border:none;margin-top:8px;align-items:center;"><div class="avatar-mock" style="width:32px;height:32px;"></div><div class="blk-line-mock w40" style="margin-left:8px;"></div></div></div>`).join('')}
+          </div>
+          <p class="blk-desc">Selected testimonials, displayed dynamically.</p>
+        </div>
+        <div class="blk accent" style="text-align:center;">
+          <p class="blk-label">Final Call-to-Action</p>
+          <div class="blk-title-mock" style="margin:4px auto;width:40%;"></div>
+          <span class="btn-mock filled">Contact Us →</span>
+        </div>
+        <div class="footer-mock">Footer — Sitemap links · Contact info · Social · Legal</div>
+      </div>
+    `
+  },
+  {
+    id: 'about', label: 'About Us', path: '/about-us',
+    render: () => `
+      <div class="stack">
+        <div class="blk">
+          <p class="blk-label">Page Header</p>
+          <div class="blk-title-mock" style="width:40%;height:20px;"></div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">About Our Company</p>
+          <div class="row" style="border:none;">
+            <div style="flex:1;padding-right:16px;"><div class="blk-line-mock w80"></div><div class="blk-line-mock w80"></div><div class="blk-line-mock w60"></div></div>
+            <div class="img-mock" style="flex:1;height:90px;">image</div>
+          </div>
+          <p class="blk-desc">Company introduction and overview.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">About Our Process</p>
+          <div class="row" style="border:none;margin-top:6px;">
+            ${['01','02','03','04'].map(n=>`<div class="blk" style="border-color:var(--line);text-align:center;padding:14px;"><div class="blk-line-mock w40" style="margin:0 auto 6px;"></div><div class="blk-line-mock w60" style="margin:0 auto;"></div></div>`).join('')}
+          </div>
+          <p class="blk-desc">Overview of the approach Dyuthi follows with clients.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Our Principal Consultant</p>
+          <div class="row" style="border:none;align-items:flex-start;">
+            <div style="flex:0 0 120px;"><div class="avatar-mock" style="width:110px;height:110px;"></div></div>
+            <div style="flex:1;padding-left:20px;">
+              <div class="blk-title-mock sm"></div>
+              <div class="blk-line-mock w80"></div>
+              <div class="blk-line-mock w80"></div>
+              <div class="blk-line-mock w60"></div>
+            </div>
+          </div>
+          <p class="blk-desc">Detailed profile — Vivekanand Shankar.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Companies We Have Worked With</p>
+          <div class="row" style="border:none;gap:14px;flex-wrap:wrap;">
+            ${Array(6).fill(0).map(()=>`<div class="logo-mock"></div>`).join('')}
+          </div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Client Testimonials</p>
+          <div class="grid cols-3" style="margin-top:6px;">
+            ${Array(3).fill(0).map(()=>`<div class="blk" style="border-color:var(--line);"><div class="blk-line-mock w80"></div><div class="blk-line-mock w60"></div></div>`).join('')}
+          </div>
+        </div>
+        <div class="footer-mock">Footer — Sitemap links · Contact info · Social · Legal</div>
+      </div>
+    `
+  },
+  {
+    id: 'services', label: 'Services (Hub)', path: '/services',
+    render: () => `
+      <div class="stack">
+        <div class="blk">
+          <p class="blk-label">Page Header</p>
+          <div class="blk-title-mock" style="width:36%;height:20px;"></div>
+          <div class="blk-line-mock w60"></div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Services Grid — 7 Individual Service Cards</p>
+          <div class="grid cols-4" style="margin-top:6px;">
+            ${['Process Audit','Kaizen Consulting','Lean Mfg. Consulting','TPS Consulting','Productivity Improvement','Process Standardization & SOP','Training & Workshops'].map(s=>`
+              <div class="blk" style="border-color:var(--line);padding:14px;">
+                <div class="icon-mock"></div>
+                <div style="font-size:11.5px;font-weight:600;margin-bottom:6px;">${s}</div>
+                <div class="blk-line-mock w80"></div>
+                <span class="btn-mock" style="margin-top:8px;font-size:10px;">View Service →</span>
+              </div>`).join('')}
+          </div>
+          <p class="blk-desc">Each card links to its own detailed service page — see "Service Detail" tab for the shared template.</p>
+        </div>
+        <div class="blk accent" style="text-align:center;">
+          <p class="blk-label">Final Call-to-Action</p>
+          <span class="btn-mock filled">Talk to a Consultant →</span>
+        </div>
+        <div class="footer-mock">Footer — Sitemap links · Contact info · Social · Legal</div>
+      </div>
+    `
+  },
+  {
+    id: 'service-detail', label: 'Service Detail (Template)', path: '/services/process-audit',
+    render: () => `
+      <div class="stack">
+        <div class="blk accent">
+          <p class="blk-label">Service Banner</p>
+          <div class="blk-title-mock" style="width:50%;height:20px;"></div>
+          <div class="blk-line-mock w60"></div>
+          <p class="note">e.g. "Process Audit" — repeats for all 7 services with this same template.</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Service Overview</p>
+          <div class="blk-line-mock w80"></div><div class="blk-line-mock w60"></div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Problems We Help Solve</p>
+          <div class="grid cols-3" style="margin-top:6px;">
+            ${Array(3).fill(0).map(()=>`<div class="blk" style="border-color:var(--line);"><div class="icon-mock"></div><div class="blk-line-mock w80"></div></div>`).join('')}
+          </div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Our Approach</p>
+          <div class="row" style="border:none;margin-top:6px;">
+            ${['01','02','03'].map(()=>`<div class="blk" style="border-color:var(--line);text-align:center;padding:14px;"><div class="blk-line-mock w40" style="margin:0 auto 6px;"></div><div class="blk-line-mock w60" style="margin:0 auto;"></div></div>`).join('')}
+          </div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Key Benefits</p>
+          <div class="grid cols-4" style="margin-top:6px;">
+            ${Array(4).fill(0).map(()=>`<div class="blk" style="border-color:var(--line);text-align:center;"><div class="icon-mock" style="margin:0 auto 8px;"></div><div class="blk-line-mock w60" style="margin:0 auto;"></div></div>`).join('')}
+          </div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Relevant Industries</p>
+          <div class="row" style="border:none;gap:8px;flex-wrap:wrap;">
+            ${Array(5).fill(0).map(()=>`<span class="pill" style="padding:6px 12px;">Industry</span>`).join('')}
+          </div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Related Case Studies</p>
+          <div class="grid cols-3" style="margin-top:6px;">
+            ${Array(3).fill(0).map(()=>`<div class="blk" style="border-color:var(--line);padding:0;"><div class="img-mock" style="height:70px;">image</div><div style="padding:10px;"><div class="blk-line-mock w80"></div></div></div>`).join('')}
+          </div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Frequently Asked Questions</p>
+          ${Array(3).fill(0).map(()=>`<div class="blk" style="border-color:var(--line);margin-top:6px;"><div class="blk-line-mock w60"></div></div>`).join('')}
+        </div>
+        <div class="blk accent" style="text-align:center;">
+          <p class="blk-label">Call-to-Action</p>
+          <span class="btn-mock filled">Contact Us →</span>
+        </div>
+        <div class="footer-mock">Footer — Sitemap links · Contact info · Social · Legal</div>
+      </div>
+    `
+  },
+  {
+    id: 'industries', label: 'Industries', path: '/industries',
+    render: () => `
+      <div class="stack">
+        <div class="blk">
+          <p class="blk-label">Page Header</p>
+          <div class="blk-title-mock" style="width:36%;height:20px;"></div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Industry Cards (7)</p>
+          <div class="grid cols-4" style="margin-top:6px;">
+            ${['Automotive & Auto Components','Garments & Textile Mfg.','Food & Beverage Mfg.','Printing & Packaging','Engineering & Machinery Mfg.','Paper & Packaging','Logistics & Warehousing'].map(s=>`
+              <div class="blk" style="border-color:var(--line);padding:0;">
+                <div class="img-mock" style="height:70px;">image</div>
+                <div style="padding:10px;">
+                  <div style="font-size:11px;font-weight:600;margin-bottom:4px;">${s}</div>
+                  <div class="blk-line-mock w80"></div>
+                  <div class="blk-line-mock w60"></div>
+                </div>
+              </div>`).join('')}
+          </div>
+          <p class="blk-desc">Each card: visual, brief intro, key challenges for that industry.</p>
+        </div>
+        <div class="footer-mock">Footer — Sitemap links · Contact info · Social · Legal</div>
+      </div>
+    `
+  },
+  {
+    id: 'case-listing', label: 'Case Studies (Listing)', path: '/case-studies',
+    render: () => `
+      <div class="stack">
+        <div class="blk">
+          <p class="blk-label">Page Header</p>
+          <div class="blk-title-mock" style="width:36%;height:20px;"></div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Case Study Cards (dynamic, from Admin Panel)</p>
+          <div class="grid cols-3" style="margin-top:6px;">
+            ${Array(6).fill(0).map(()=>`
+              <div class="blk" style="border-color:var(--line);padding:0;">
+                <div class="img-mock" style="height:90px;">featured image</div>
+                <div style="padding:12px;">
+                  <div class="blk-line-mock w80"></div>
+                  <div style="font-size:10.5px;color:var(--sub);margin:6px 0;">Client Name · <span class="pill">Industry</span></div>
+                  <div class="blk-line-mock w60"></div>
+                  <span class="btn-mock" style="margin-top:8px;font-size:10px;">View Case Study →</span>
+                </div>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="footer-mock">Footer — Sitemap links · Contact info · Social · Legal</div>
+      </div>
+    `
+  },
+  {
+    id: 'case-detail', label: 'Case Study Detail (Template)', path: '/case-studies/client-x',
+    render: () => `
+      <div class="stack">
+        <div class="blk accent">
+          <p class="blk-label">Case Study Title + Client / Industry</p>
+          <div class="blk-title-mock" style="width:55%;height:20px;"></div>
+          <div class="row" style="border:none;margin-top:4px;"><span class="pill">Client Name</span><span class="pill">Industry</span></div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Project Overview</p>
+          <div class="blk-line-mock w80"></div><div class="blk-line-mock w60"></div>
+        </div>
+        <div class="row">
+          <div class="blk"><p class="blk-label">Business Challenge</p><div class="blk-line-mock w80"></div><div class="blk-line-mock w60"></div></div>
+          <div class="blk"><p class="blk-label">Audit / Observations</p><div class="blk-line-mock w80"></div><div class="blk-line-mock w60"></div></div>
+        </div>
+        <div class="row">
+          <div class="blk"><p class="blk-label">Recommendations / Solutions</p><div class="blk-line-mock w80"></div><div class="blk-line-mock w60"></div></div>
+          <div class="blk"><p class="blk-label">Implementation</p><div class="blk-line-mock w80"></div><div class="blk-line-mock w60"></div></div>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Results / Outcomes</p>
+          <div class="grid cols-3" style="margin-top:6px;">
+            ${Array(3).fill(0).map(()=>`<div class="blk" style="border-color:var(--line);text-align:center;"><div class="blk-title-mock sm" style="margin:0 auto 6px;"></div><div class="blk-line-mock w60" style="margin:0 auto;"></div></div>`).join('')}
+          </div>
+          <p class="blk-desc">Metric-style results (e.g. % improvement, time saved).</p>
+        </div>
+        <div class="blk">
+          <p class="blk-label">Image Carousel</p>
+          <div class="row" style="border:none;gap:8px;">
+            ${Array(3).fill(0).map(()=>`<div class="img-mock" style="flex:1;height:70px;">image</div>`).join('')}
+          </div>
+        </div>
+        <div class="blk accent" style="text-align:center;">
+          <p class="blk-label">Contact Call-to-Action</p>
+          <span class="btn-mock filled">Start Your Audit →</span>
+        </div>
+        <div class="footer-mock">Footer — Sitemap links · Contact info · Social · Legal</div>
+      </div>
+    `
+  },
+  {
+    id: 'contact', label: 'Contact Us', path: '/contact-us',
+    render: () => `
+      <div class="stack">
+        <div class="blk">
+          <p class="blk-label">Page Header</p>
+          <div class="blk-title-mock" style="width:32%;height:20px;"></div>
+        </div>
+        <div class="row">
+          <div class="blk">
+            <p class="blk-label">Contact Information</p>
+            <div class="blk-line-mock w60"></div>
+            <div class="blk-line-mock w60"></div>
+            <div class="blk-line-mock w60"></div>
+            <div class="blk-line-mock w60"></div>
+            <div class="img-mock" style="height:100px;margin-top:10px;">location map</div>
+            <p class="blk-desc">Phone, Email, Website, Office Address, Map, Social Links.</p>
+          </div>
+          <div class="blk">
+            <p class="blk-label">Contact Form</p>
+            ${['Name','Company Name','Email Address','Phone Number','Industry','Service Required','Message'].map(f=>`<div class="blk-line-mock w80" style="height:14px;margin:8px 0 2px;"></div>`).join('')}
+            <span class="btn-mock filled" style="margin-top:10px;">Submit Enquiry</span>
+            <p class="blk-desc">All submissions stored &amp; visible in Admin Panel.</p>
+          </div>
+        </div>
+        <div class="footer-mock">Footer — Sitemap links · Contact info · Social · Legal</div>
+      </div>
+    `
+  }
+];
+
+const navTabs = document.getElementById('navTabs');
+const canvas = document.getElementById('canvas');
+const pageTitle = document.getElementById('pageTitle');
+const pagePath = document.getElementById('pagePath');
+
+pages.forEach((p, i) => {
+  const btn = document.createElement('button');
+  btn.textContent = p.label;
+  btn.dataset.id = p.id;
+  if (i === 0) btn.classList.add('active');
+  btn.addEventListener('click', () => showPage(p.id));
+  navTabs.appendChild(btn);
+});
+
+function showPage(id){
+  const p = pages.find(pg => pg.id === id);
+  if(!p) return;
+  canvas.innerHTML = p.render();
+  pageTitle.textContent = p.label;
+  pagePath.textContent = 'dyuthiprocessconsultants.com' + p.path;
+  document.querySelectorAll('.nav-tabs button').forEach(b => {
+    b.classList.toggle('active', b.dataset.id === id);
+  });
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+showPage(pages[0].id);
+</script>
+
+</body>
+</html>
